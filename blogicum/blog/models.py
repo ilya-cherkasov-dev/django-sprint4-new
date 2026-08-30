@@ -100,13 +100,11 @@ class Comment(models.Model):
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
-        related_name='comments',
         verbose_name='Публикация',
     )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='comments',
         verbose_name='Автор комментария',
     )
     created_at = models.DateTimeField('Добавлено', auto_now_add=True)
@@ -115,6 +113,7 @@ class Comment(models.Model):
         verbose_name = 'комментарий'
         verbose_name_plural = 'Комментарии'
         ordering = ('created_at',)
+        default_related_name = 'comments'
 
     def __str__(self):
         return self.text[:COMMENT_STR_MAX_LENGTH]

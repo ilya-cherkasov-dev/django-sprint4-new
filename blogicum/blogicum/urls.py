@@ -6,7 +6,6 @@ from django.views.generic.edit import CreateView
 
 from users.forms import CustomUserCreationForm
 
-handler403 = 'pages.views.permission_denied'
 handler404 = 'pages.views.page_not_found'
 handler500 = 'pages.views.server_error'
 
