@@ -144,7 +144,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         )
 
 
-class PostUpdateView(PostChangeMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, PostChangeMixin, UpdateView):
     form_class = PostForm
 
     def get_success_url(self):
@@ -154,7 +154,7 @@ class PostUpdateView(PostChangeMixin, UpdateView):
         )
 
 
-class PostDeleteView(PostChangeMixin, DeleteView):
+class PostDeleteView(LoginRequiredMixin, PostChangeMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -187,9 +187,9 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         )
 
 
-class CommentUpdateView(CommentMixin, UpdateView):
+class CommentUpdateView(LoginRequiredMixin, CommentMixin, UpdateView):
     form_class = CommentForm
 
 
-class CommentDeleteView(CommentMixin, DeleteView):
+class CommentDeleteView(LoginRequiredMixin, CommentMixin, DeleteView):
     pass

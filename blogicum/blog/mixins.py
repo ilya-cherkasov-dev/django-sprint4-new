@@ -1,27 +1,23 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 
 from .models import Comment, Post
 
 
-class PostChangeMixin(LoginRequiredMixin):
+class PostChangeMixin:
     model = Post
     template_name = 'blog/create.html'
     pk_url_kwarg = 'post_id'
 
     def dispatch(self, request, *args, **kwargs):
-        if (
-            request.user.is_authenticated
-            and self.get_object().author != request.user
-        ):
+        if self.get_object().author != request.user:
             return redirect(
                 'blog:post_detail', post_id=self.kwargs['post_id'],
             )
         return super().dispatch(request, *args, **kwargs)
 
 
-class CommentMixin(LoginRequiredMixin):
+class CommentMixin:
     model = Comment
     template_name = 'blog/comment.html'
 
@@ -33,10 +29,7 @@ class CommentMixin(LoginRequiredMixin):
         )
 
     def dispatch(self, request, *args, **kwargs):
-        if (
-            request.user.is_authenticated
-            and self.get_object().author != request.user
-        ):
+        if self.get_object().author != request.user:
             return redirect(
                 'blog:post_detail', post_id=self.kwargs['post_id'],
             )
